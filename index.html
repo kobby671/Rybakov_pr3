@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Административная панель учебного проекта на Bootstrap 5">
+  <title>Контрольная панель — Практическая №3</title>
+  <link rel="icon" href="dataset/assets/avatar.svg" type="image/svg+xml">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link href="css/custom.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark topbar sticky-top" aria-label="Основная навигация">
+    <div class="container-xl">
+      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#overview"><img src="dataset/assets/avatar.svg" alt="" class="brand-avatar"> Учебная панель</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Открыть меню"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="#overview">Обзор</a></li>
+          <li class="nav-item"><a class="nav-link" href="#operations">Операции</a></li>
+          <li class="nav-item"><a class="nav-link" href="#notifications">Уведомления</a></li>
+        </ul>
+        <button class="btn btn-outline-light ms-lg-3 mt-3 mt-lg-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#helpPanel" aria-controls="helpPanel">О проекте</button>
+      </div>
+    </div>
+  </nav>
+  <header class="hero py-5" id="overview">
+    <div class="container-xl d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-4">
+      <div><p class="eyebrow mb-2">ТЕХНОЛОГИИ РАЗРАБОТКИ ПО · ПРАКТИЧЕСКАЯ №3</p><h1 class="display-5 fw-bold mb-3">Контрольная панель</h1><p class="lead mb-0">Показатели, события и действия учебного проекта в одном месте.</p></div>
+      <img class="hero-graphic" src="dataset/assets/chart.svg" alt="Иллюстрация диаграммы">
+    </div>
+  </header>
+  <main class="container-xl py-4 py-lg-5">
+    <div id="loadError" class="alert alert-danger d-none" role="alert"></div>
+    <section aria-labelledby="metricsHeading" class="mb-5">
+      <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mb-3"><div><p class="section-overline mb-1">ОБЗОР СИСТЕМЫ</p><h2 id="metricsHeading" class="h3 fw-bold mb-0">Ключевые показатели</h2></div><span class="text-secondary small" id="metricsSource">Данные: dashboard.json</span></div>
+      <div class="row g-3" id="metricsGrid"><div class="col-12"><p class="text-secondary">Загружаем показатели…</p></div></div>
+    </section>
+    <section id="operations" class="mb-5" aria-labelledby="operationsHeading">
+      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-3">
+        <div><p class="section-overline mb-1">ЖУРНАЛ СОБЫТИЙ</p><h2 id="operationsHeading" class="h3 fw-bold mb-1">Последние операции</h2><p class="text-secondary mb-0 small" id="rowCount" aria-live="polite">Загрузка…</p></div>
+        <div class="d-flex gap-2 flex-wrap"><button type="button" id="toggleStatusBtn" class="btn btn-outline-primary">Только в работе</button><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">+ Добавить запись</button></div>
+      </div>
+      <div class="card panel-card"><div class="card-body p-0"><div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead class="table-light"><tr><th scope="col" class="ps-4">ID</th><th scope="col">Операция</th><th scope="col" class="pe-4">Статус</th></tr></thead><tbody id="operationsBody"><tr><td colspan="3" class="p-4 text-secondary">Загружаем операции…</td></tr></tbody></table></div></div></div>
+    </section>
+    <section id="notifications" class="mb-5" aria-labelledby="notificationsHeading">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3"><div><p class="section-overline mb-1">СООБЩЕНИЯ</p><h2 id="notificationsHeading" class="h3 fw-bold mb-0">Уведомления</h2></div><button id="showNoticeBtn" class="btn btn-outline-primary" type="button">Показать уведомление</button></div>
+      <div id="notificationsList" class="row g-3"><div class="col-12 text-secondary">Загрузка уведомлений…</div></div>
+    </section>
+    <section aria-labelledby="aboutHeading" class="card panel-card"><div class="card-body p-4"><h2 id="aboutHeading" class="h5 fw-bold">Как пользоваться панелью</h2><p class="text-secondary mb-0">Нажмите «Добавить запись», заполните форму и сохраните результат. Новая операция появится в таблице, а Bootstrap Toast подтвердит действие. Записи добавляются только на время работы страницы, исходный JSON не изменяется.</p></div></section>
+  </main>
+  <footer class="py-4 border-top bg-white"><div class="container-xl d-flex flex-column flex-sm-row justify-content-between gap-2"><span class="text-secondary small">Практическая работа №3 · Bootstrap 5 + JavaScript</span><span class="text-secondary small">Данные из dataset</span></div></footer>
+  <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalTitle" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h2 class="modal-title fs-5" id="addModalTitle">Добавить операцию</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button></div><form id="operationForm" novalidate><div class="modal-body"><p class="text-secondary small">Добавьте новую запись в таблицу. Поля со звёздочкой обязательны.</p><div class="mb-3"><label for="actionInput" class="form-label">Название операции *</label><input id="actionInput" name="action" class="form-control" type="text" minlength="3" maxlength="80" required placeholder="Например, Проверка отчёта" aria-describedby="actionHelp actionError"><div id="actionHelp" class="form-text">Минимум 3 символа.</div><div id="actionError" class="invalid-feedback">Введите название длиной от 3 до 80 символов.</div></div><div class="mb-2"><label for="statusInput" class="form-label">Статус *</label><select id="statusInput" class="form-select" required><option value="Новая">Новая</option><option value="В работе">В работе</option><option value="Готово">Готово</option></select><div class="invalid-feedback">Выберите статус.</div></div></div><div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button><button type="submit" class="btn btn-primary" id="saveButton">Сохранить</button></div></form></div></div></div>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="helpPanel" aria-labelledby="helpPanelTitle"><div class="offcanvas-header"><h2 class="offcanvas-title h5" id="helpPanelTitle">О панели</h2><button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button></div><div class="offcanvas-body"><p>Учебная административная панель с данными из <code>dataset/dashboard.json</code> и <code>dataset/notifications.json</code>.</p><p>Bootstrap отвечает за сетку, раскрывающееся меню, модальное окно, боковую панель и toast. Собственный <code>js/app.js</code> загружает данные, валидирует форму и обновляет таблицу.</p><button type="button" class="btn btn-outline-primary" data-bs-dismiss="offcanvas">Понятно</button></div></div>
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" aria-live="polite"><div id="actionToast" class="toast border-0 shadow" role="status" aria-atomic="true" data-bs-delay="3500"><div class="toast-header"><span class="toast-dot me-2"></span><strong class="me-auto">Уведомление</strong><small>Сейчас</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button></div><div class="toast-body" id="toastMessage">Готово.</div></div></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
